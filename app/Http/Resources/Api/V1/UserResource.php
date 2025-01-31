@@ -20,7 +20,7 @@ class UserResource extends JsonResource
             'attributes' => [
                 'name' => $this->name,
                 'email' => $this->email,
-                'email_verified_at' => $this->mergeWhen(
+                $this->mergeWhen(
                     $request->routeIs('users.*'),
                     [
                         'email_verified_at' => $this->email_verified_at,
