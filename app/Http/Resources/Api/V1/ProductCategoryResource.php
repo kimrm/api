@@ -25,12 +25,12 @@ class ProductCategoryResource extends JsonResource
                     $request->routeIs('*.show'),
                     $this->description
                 ),
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at,
             ],
             'links' => [
                 'self' => route('product-categories.show', ['product_category' => $this->id]),
             ],
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
         ];
     }
 }
