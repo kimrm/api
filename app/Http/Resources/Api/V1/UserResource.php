@@ -20,12 +20,14 @@ class UserResource extends JsonResource
             'attributes' => [
                 'name' => $this->name,
                 'email' => $this->email,
-                'email_verified_at' => $this->when(
+                'email_verified_at' => $this->mergeWhen(
                     $request->routeIs('users.*'),
-                    $this->email_verified_at
+                    [
+                        'email_verified_at' => $this->email_verified_at,
+                        'created_at' => $this->created_at,
+                        'updated_at' => $this->updated_at,
+                    ]
                 ),
-                'created_at' => $this->created_at,
-                'updated_at' => $this->updated_at,
             ],
             'links' => [
                 'self' => route('users.show', ['user' => $this->id]),
