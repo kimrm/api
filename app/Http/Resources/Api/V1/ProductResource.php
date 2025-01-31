@@ -21,13 +21,15 @@ class ProductResource extends JsonResource
             'attributes' => [
                 'name' => $this->name,
                 'description' => $this->when(
-                    $request->routeIs('products.show'),
+                    $request->routeIs('*.show'),
                     $this->description
                 ),
                 'price' => $this->price,
                 'stock' => $this->stock,
                 'status' => $this->status,
                 'image' => $this->image,
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at,
             ],
             'relationships' => [
                 'category' => new ProductCategoryResource($this->category),
@@ -36,8 +38,6 @@ class ProductResource extends JsonResource
             'links' => [
                 'self' => route('products.show', ['product' => $this->id]),
             ],
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
         ];
     }
 }
