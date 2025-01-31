@@ -6,11 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Resources\Api\V1\ProductResource;
-use App\Traits\ApiResponses;
 
 class ProductController extends Controller
 {
-    use ApiResponses;
 
     /**
      * Display a listing of the resource.
