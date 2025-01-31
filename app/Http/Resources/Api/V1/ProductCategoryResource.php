@@ -21,12 +21,14 @@ class ProductCategoryResource extends JsonResource
             'type' => 'product_category',
             'attributes' => [
                 'name' => $this->name,
-                'description' => $this->when(
-                    $request->routeIs('*.show'),
-                    $this->description
+                $this->mergeWhen(
+                    $request->routeIs('product-categories.*'),
+                    [
+                        'description' => $this->description,
+                        'createdAt' => $this->created_at,
+                        'updatedAt' => $this->updated_at,
+                    ],
                 ),
-                'createdAt' => $this->created_at,
-                'updatedAt' => $this->updated_at,
             ],
             'links' => [
                 'self' => route('product-categories.show', ['product_category' => $this->id]),
