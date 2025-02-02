@@ -51,6 +51,34 @@ class ProductController extends Controller
         //
     }
 
+    #[OA\Get(
+        path: "/api/v1/products/{id}",
+        summary: "Display a single product",
+        tags: ["Products"],
+        parameters: [
+            new OA\Parameter(
+                name: "id",
+                in: "path",
+                required: true,
+                description: "ID of the product",
+                schema: new OA\Schema(type: "integer", example: 1)
+            )
+        ],
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: "Single product details",
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(
+                            property: "data",
+                            ref: "#/components/schemas/Product"
+                        )
+                    ]
+                )
+            )
+        ]
+    )]
     /**
      * Display the specified resource.
      */
