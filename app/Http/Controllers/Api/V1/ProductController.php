@@ -10,9 +10,8 @@ use App\Http\Resources\Api\V1\ProductResource;
 class ProductController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     */
+
+
     public function index()
     {
         return ProductResource::collection(Product::paginate());

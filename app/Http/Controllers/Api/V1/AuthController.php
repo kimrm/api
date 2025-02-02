@@ -9,11 +9,64 @@ use App\Models\User;
 use App\Traits\ApiResponses;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use OpenApi\Attributes as OA;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
     use ApiResponses;
 
+
+    #[OA\Post(
+        path: "/api/v1/register",
+        summary: "Register a new user",
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\MediaType(
+                mediaType: "application/x-www-form-urlencoded",
+                schema: new OA\Schema(
+                    required: ["first_name", "last_name", "email", "password", "password_confirmation"],
+                    properties: [
+                        new OA\Property(property: 'name', description: "User name", type: "string"),
+                        new OA\Property(property: 'email', description: "User email", type: "string"),
+                        new OA\Property(property: 'password', description: "User password", type: "string"),
+                        new OA\Property(property: 'password_confirmation', description: "User password confirmation", type: "string"),
+                    ]
+                )
+            )
+        ),
+        tags: ["Authentication"],
+        responses: [
+            new OA\Response(
+                response: Response::HTTP_OK,
+                description: "User registered successfully",
+                content: new OA\JsonContent(
+                    type: "object",
+                    properties: [
+                        new OA\Property(property: 'message', type: "string"),
+                        new OA\Property(property: 'data', type: "object", properties: [
+                            new OA\Property(property: 'id', type: "integer"),
+                            new OA\Property(property: 'name', type: "string"),
+                            new OA\Property(property: 'email', type: "string"),
+                            new OA\Property(property: 'created_at', type: "string"),
+                            new OA\Property(property: 'updated_at', type: "string"),
+                        ])
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: Response::HTTP_UNPROCESSABLE_ENTITY,
+                description: "Invalid data",
+                content: new OA\JsonContent(
+                    type: "object",
+                    properties: [
+                        new OA\Property(property: 'message', type: "string"),
+                        new OA\Property(property: 'errors', type: "object")
+                    ]
+                )
+            ),
+        ]
+    )]
     /**
      * Register a new user.
      *
@@ -33,6 +86,51 @@ class AuthController extends Controller
     }
 
 
+    #[OA\Post(
+        path: "/api/v1/login",
+        summary: "Login a user",
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\MediaType(
+                mediaType: "application/x-www-form-urlencoded",
+                schema: new OA\Schema(
+                    required: ["email", "password"],
+                    properties: [
+                        new OA\Property(property: 'email', description: "User email", type: "string"),
+                        new OA\Property(property: 'password', description: "User password", type: "string"),
+                    ]
+                )
+            )
+        ),
+        tags: ["Authentication"],
+        responses: [
+            new OA\Response(
+                response: Response::HTTP_OK,
+                description: "User logged in successfully",
+                content: new OA\JsonContent(
+                    type: "object",
+                    properties: [
+                        new OA\Property(property: 'message', type: "string"),
+                        new OA\Property(property: 'data', type: "object", properties: [
+                            new OA\Property(property: 'token', type: "string"),
+                            new OA\Property(property: 'token_type', type: "string"),
+                        ])
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: Response::HTTP_UNAUTHORIZED,
+                description: "Invalid credentials",
+                content: new OA\JsonContent(
+                    type: "object",
+                    properties: [
+                        new OA\Property(property: 'message', type: "string"),
+                        new OA\Property(property: 'errors', type: "object")
+                    ]
+                )
+            ),
+        ]
+    )]
     /**
      * Handle the login request.
      *
