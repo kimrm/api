@@ -5,9 +5,9 @@ namespace App\OpenApi\Schemas;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: "Product", // Navnet under components/schemas
+    schema: "Product",
     title: "Product",
-    description: "Et produkt med attributter, relasjoner og lenker",
+    description: "A product with attributes, relationships and links",
     type: "object",
     properties: [
         new OA\Property(property: "id", type: "integer", example: 1),
@@ -87,5 +87,5 @@ use OpenApi\Attributes as OA;
 )]
 class ProductSchema
 {
-    // Klassen trenger ikke ha noe logikk – den fungerer kun som et "container" for annotasjonene.
+    //
 }

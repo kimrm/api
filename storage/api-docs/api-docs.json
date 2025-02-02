@@ -227,7 +227,7 @@
         "schemas": {
             "Product": {
                 "title": "Product",
-                "description": "Et produkt med attributter, relasjoner og lenker",
+                "description": "A product with attributes, relationships and links",
                 "properties": {
                     "id": {
                         "type": "integer",
