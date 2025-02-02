@@ -191,9 +191,172 @@
                     }
                 }
             }
+        },
+        "/api/v1/products": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Display a list of products",
+                "description": "Display a list of products.",
+                "operationId": "1ce27f90dd8c39cea9520bf45d58c7c2",
+                "responses": {
+                    "200": {
+                        "description": "List of products",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Product"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
+        "schemas": {
+            "Product": {
+                "title": "Product",
+                "description": "Et produkt med attributter, relasjoner og lenker",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "product"
+                    },
+                    "attributes": {
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "example": "Newton Brakus"
+                            },
+                            "price": {
+                                "type": "number",
+                                "format": "float",
+                                "example": 63.52
+                            },
+                            "stock": {
+                                "type": "integer",
+                                "example": 43
+                            },
+                            "status": {
+                                "type": "string",
+                                "example": "active"
+                            },
+                            "image": {
+                                "type": "string",
+                                "example": "https://via.placeholder.com/640x480.png/00dddd?text=non"
+                            },
+                            "createdAt": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2025-01-31T14:44:29.000000Z"
+                            },
+                            "updatedAt": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2025-01-31T14:44:29.000000Z"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "relationships": {
+                        "properties": {
+                            "category": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "example": "product_category"
+                                    },
+                                    "attributes": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Electronics"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "links": {
+                                        "properties": {
+                                            "self": {
+                                                "type": "string",
+                                                "example": "http://api-test.test/api/v1/product-categories/2"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "owner": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "example": "user"
+                                    },
+                                    "attributes": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Name"
+                                            },
+                                            "email": {
+                                                "type": "string",
+                                                "example": "name@email.com"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "links": {
+                                        "properties": {
+                                            "self": {
+                                                "type": "string",
+                                                "example": "http://api-test.test/api/v1/users/1"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "links": {
+                        "properties": {
+                            "self": {
+                                "type": "string",
+                                "example": "http://api-test.test/api/v1/products/1"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",
@@ -207,6 +370,10 @@
         {
             "name": "Authentication",
             "description": "Authentication"
+        },
+        {
+            "name": "Products",
+            "description": "Products"
         }
     ]
 }
