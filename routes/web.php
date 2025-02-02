@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductCategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,7 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware('can:modify,App\Models\Product')->group(function () {
-        Route::resource('products', ProductController::class);
+        Route::resource('/products/categories', ProductCategoryController::class);
+        Route::resource('/products', ProductController::class);
     });
 });
 
