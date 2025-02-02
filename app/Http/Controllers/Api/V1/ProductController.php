@@ -6,12 +6,37 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Resources\Api\V1\ProductResource;
+use OpenApi\Attributes as OA;
 
 class ProductController extends Controller
 {
 
-
-
+    #[
+        OA\Get(
+            path: "/api/v1/products",
+            summary: "Display a list of products",
+            tags: ["Products"],
+            responses: [
+                new OA\Response(
+                    response: 200,
+                    description: "List of products",
+                    content: new OA\JsonContent(
+                        properties: [
+                            new OA\Property(
+                                property: "data",
+                                type: "array",
+                                items: new OA\Items(ref: "#/components/schemas/Product")
+                            )
+                        ]
+                    )
+                )
+            ]
+        )
+    ]
+    /**
+     * Display a list of products.
+     *      
+     */
     public function index()
     {
         return ProductResource::collection(Product::paginate());
