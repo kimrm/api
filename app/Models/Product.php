@@ -17,6 +17,7 @@ class Product extends Model
         'status',
         'image',
         'user_id',
+        'product_category_id',
         'published_at',
         'archived_at',
         'deleted_at',
